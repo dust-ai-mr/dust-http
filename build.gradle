@@ -17,7 +17,7 @@ plugins {
 }
 
 group 'com.mentalresonance'
-version '1.0.1'
+version '1.0.2'
 
 repositories {
     mavenLocal()
@@ -54,7 +54,7 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.10.1'
 
-    api 'com.mentalresonance:dust-core:1.0.1'
+    api 'com.mentalresonance:dust-core:1.0.2'
 
     api 'com.squareup.okhttp3:okhttp:4.12.0'
     api 'com.squareup.okhttp3:okhttp-sse:4.12.0'
@@ -69,22 +69,22 @@ dependencies {
 
 }
 
-test {
-    test {
-        useJUnitPlatform()
-        jvmArgs([
-            '-Xmx32g',
-            '--add-opens=java.base/java.lang=ALL-UNNAMED',
-            '--add-opens=java.base/java.math=ALL-UNNAMED',
-            '--add-opens=java.base/java.util=ALL-UNNAMED',
-            '--add-opens=java.base/java.util.concurrent=ALL-UNNAMED',
-            '--add-opens=java.base/java.net=ALL-UNNAMED',
-            '--add-opens=java.base/java.text=ALL-UNNAMED',
-            '--add-opens=java.sql/java.sql=ALL-UNNAMED',
-        ])
 
-    }
+test {
+    useJUnitPlatform()
+    jvmArgs([
+        '-Xmx32g',
+        '--add-opens=java.base/java.lang=ALL-UNNAMED',
+        '--add-opens=java.base/java.math=ALL-UNNAMED',
+        '--add-opens=java.base/java.util=ALL-UNNAMED',
+        '--add-opens=java.base/java.util.concurrent=ALL-UNNAMED',
+        '--add-opens=java.base/java.net=ALL-UNNAMED',
+        '--add-opens=java.base/java.text=ALL-UNNAMED',
+        '--add-opens=java.sql/java.sql=ALL-UNNAMED',
+    ])
+
 }
+
 
 publishing {
     publications {
