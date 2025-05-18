@@ -101,6 +101,20 @@ public class HttpService {
      */
     public HttpService() {}
 
+    public static void shutdown() {
+
+        httpClient.dispatcher().executorService().shutdown();
+        httpClient.connectionPool().evictAll();
+
+        if (httpClient.cache() != null) {
+            try {
+                httpClient.cache().close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     /**
      * Build a okhttp3 Request object. If headers does not contain User-Agent one is added
      * @param url - the url
