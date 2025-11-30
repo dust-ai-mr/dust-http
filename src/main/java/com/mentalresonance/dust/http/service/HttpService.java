@@ -24,6 +24,7 @@ import com.mentalresonance.dust.http.msgs.StreamingHttpDataMsg;
 import com.mentalresonance.dust.http.msgs.StreamingHttpEndMsg;
 import com.mentalresonance.dust.http.msgs.StreamingHttpFailureMsg;
 import com.mentalresonance.dust.http.msgs.StreamingHttpStartMsg;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import okhttp3.sse.EventSource;
@@ -78,6 +79,7 @@ public class HttpService {
      */
     static final String defaultUserAgent = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0";
 
+    @Getter
     static OkHttpClient httpClient;
 
     static {
@@ -87,7 +89,7 @@ public class HttpService {
 
         //noinspection KotlinInternalInJava
         httpClient = new OkHttpClient.Builder()
-                .readTimeout(60*1000L, TimeUnit.MILLISECONDS)
+                .readTimeout(5*60*1000L, TimeUnit.MILLISECONDS)
                 .writeTimeout(60*1000L, TimeUnit.MILLISECONDS)
                 .followRedirects(true)
                 .followSslRedirects(true)
@@ -289,11 +291,12 @@ public class HttpService {
             .enqueue(new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    log.trace("Request: {} failed: {}", request, e.getMessage());
                     fail.apply(e);
                 }
 
                 @Override
-                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                public void onResponse(@NotNull Call call, @NotNull Response response) {
                     succeed.apply(response);
                 }
             });
@@ -331,6 +334,8 @@ public class HttpService {
         @Override
         public void onEvent(@NotNull EventSource eventSource, @Nullable String id, @Nullable String type, @NotNull String data) {
             client.tell( new StreamingHttpDataMsg(id, type, data), null);
+            // Send to server for possible accounting purposes
+            server.tell( new StreamingHttpDataMsg(id, type, data), null);
         }
 
         @Override
