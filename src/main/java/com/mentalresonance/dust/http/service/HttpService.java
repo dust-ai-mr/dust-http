@@ -86,13 +86,13 @@ public class HttpService {
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
         JavaNetCookieJar cookieJar = new JavaNetCookieJar(cookieManager);
-        Dispatcher dispatcher = new Dispatcher();
-        dispatcher.setMaxRequests(512);
-        dispatcher.setMaxRequestsPerHost(64);
+        //Dispatcher dispatcher = new Dispatcher();
+        //dispatcher.setMaxRequests(512);
+        //dispatcher.setMaxRequestsPerHost(64);
 
         //noinspection KotlinInternalInJava
         httpClient = new OkHttpClient.Builder()
-            .dispatcher(dispatcher)
+            // .dispatcher(dispatcher)
             .readTimeout(60*1000L, TimeUnit.MILLISECONDS)
             .writeTimeout(60*1000L, TimeUnit.MILLISECONDS)
             .followRedirects(true)
