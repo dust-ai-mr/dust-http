@@ -93,8 +93,8 @@ public class HttpService {
         //noinspection KotlinInternalInJava
         httpClient = new OkHttpClient.Builder()
             // .dispatcher(dispatcher)
-            .readTimeout(60*1000L, TimeUnit.MILLISECONDS)
-            .writeTimeout(60*1000L, TimeUnit.MILLISECONDS)
+            .readTimeout(5, TimeUnit.MINUTES)
+            .writeTimeout(5, TimeUnit.MINUTES)
             .followRedirects(true)
             .followSslRedirects(true)
             .connectionPool(new ConnectionPool(64, 5, TimeUnit.MINUTES))
@@ -295,7 +295,7 @@ public class HttpService {
             .enqueue(new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    log.trace("Request: {} failed: {}", request, e.getMessage());
+                    log.warn("Request: {} failed: {}", request, e.getMessage());
                     fail.apply(e);
                 }
 
