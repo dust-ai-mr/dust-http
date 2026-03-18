@@ -19,6 +19,7 @@
 import com.mentalresonance.dust.core.actors.Actor
 import com.mentalresonance.dust.core.actors.ActorBehavior
 import com.mentalresonance.dust.core.actors.ActorSystem
+import com.mentalresonance.dust.core.actors.ActorSystemBuilder
 import com.mentalresonance.dust.core.actors.Props
 import com.mentalresonance.dust.http.service.HttpRequestResponseMsg
 import com.mentalresonance.dust.http.trait.HttpClientActor
@@ -66,7 +67,7 @@ class WebClientTest extends Specification {
 	}
 	def "Finnhub"() {
 		when:
-			ActorSystem system = new ActorSystem("Test")
+			ActorSystem system = new ActorSystemBuilder().name("Test").build()
 			system.context.actorOf(CnnActor.props()).waitForDeath()
 			system.stop()
 		then:

@@ -19,7 +19,6 @@ package com.mentalresonance.dust.http.service;
 
 import com.google.gson.Gson;
 import com.mentalresonance.dust.core.actors.ActorRef;
-import com.mentalresonance.dust.core.services.SerializationService;
 import com.mentalresonance.dust.http.msgs.StreamingHttpDataMsg;
 import com.mentalresonance.dust.http.msgs.StreamingHttpEndMsg;
 import com.mentalresonance.dust.http.msgs.StreamingHttpFailureMsg;
@@ -30,9 +29,7 @@ import okhttp3.*;
 import okhttp3.sse.EventSource;
 import okhttp3.sse.EventSourceListener;
 import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.LinkedHashMap;
@@ -237,18 +234,6 @@ public class HttpService {
                 urlBuilder.addQueryParameter(key, val);
         }
         return urlBuilder.build().toString();
-    }
-
-    /**
-     * Todo: serialization's default Json does not map maps and lists cleanly ... don't use for now
-     *  if you are relying on it for API communication etc.
-     * @param url of request
-     * @param body of request
-     * @return Request
-     */
-    public static Request buildJsonPostRequest(String url, Serializable body) {
-        RequestBody rb = RequestBody.create(SerializationService.writeJson(body), MediaType.get("application/json"));
-        return buildRequest(url, POST, rb, new LinkedHashMap<String, String>());
     }
 
     /**

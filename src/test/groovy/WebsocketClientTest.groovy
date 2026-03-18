@@ -21,7 +21,7 @@ import com.mentalresonance.dust.core.actors.Props
 import com.mentalresonance.dust.http.actors.WebsocketClientActor
 import groovy.util.logging.Slf4j
 import spock.lang.Specification
-
+import com.mentalresonance.dust.core.actors.ActorSystemBuilder
 import javax.websocket.CloseReason
 import javax.websocket.Session
 
@@ -66,7 +66,7 @@ class WebsocketClientTest extends Specification {
 	}
 	def "Finnhub"() {
 		when:
-			ActorSystem system = new ActorSystem("Test")
+			ActorSystem system = new ActorSystemBuilder().name("Test").build()
 			system.context.actorOf(FinnActor.props(new URI("wss://ws.finnhub.io/?token=ckuo139r01qmtr8lehf0ckuo139r01qmtr8lehfg")))
 			Thread.sleep(5000L)
 			system.stop()

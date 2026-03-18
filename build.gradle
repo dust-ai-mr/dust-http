@@ -17,7 +17,7 @@ plugins {
 }
 
 group 'com.mentalresonance'
-version '1.1.6'
+version '2.0'
 
 repositories {
     mavenLocal()
@@ -39,8 +39,7 @@ dependencies {
     // This version for Java 21
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
     // This version for Java 21
-    testImplementation platform("org.spockframework:spock-bom:2.4-groovy-4.0-SNAPSHOT")
-    testImplementation 'org.spockframework:spock-core'
+    testImplementation 'org.spockframework:spock-core:2.4-M7-groovy-4.0'
     testImplementation 'org.projectlombok:lombok:1.18.30'
 
 
@@ -54,7 +53,7 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.10.1'
 
-    api 'com.mentalresonance:dust-core:1.1.5'
+    api 'com.mentalresonance:dust-core:2.0'
 
     api 'com.squareup.okhttp3:okhttp:4.12.0'
     api 'com.squareup.okhttp3:okhttp-sse:4.12.0'
